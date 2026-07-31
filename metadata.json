@@ -1,0 +1,6 @@
+{
+  "name": "GymTrack",
+  "description": "Application de suivi de musculation et de surcharge progressive (PPL, programme personnalisé, minuteur de repos, calendrier et statistiques).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
