@@ -335,7 +335,7 @@ export default function App() {
     currentSession.completed.length === programDetails.exercises.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-200 via-slate-100 to-white text-[#0a0a0a] flex flex-col font-sans select-none pb-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#FDFBFB] to-[#EBEDEE] text-[#0a0a0a] flex flex-col font-sans select-none pb-12">
       {/* Header */}
       <Header
         currentDateKey={selectedDateKey}
@@ -364,46 +364,52 @@ export default function App() {
             {/* Session Header Banner */}
             <div className="my-4">
               {currentProgram === 'rest' ? (
-                <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-8 text-center my-6 shadow-xl">
-                  <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mx-auto mb-3 text-[#bbff00]">
-                    <Info className="w-8 h-8" />
+                <div
+                  style={{ borderRadius: '48px', borderWidth: '0px' }}
+                  className="liquid-glass rounded-[48px] border-0 p-6 text-center my-4 shadow-md"
+                >
+                  <div className="w-14 h-14 rounded-2xl bg-[#0a0a0a] text-[#bbff00] flex items-center justify-center mx-auto mb-3 shadow-md">
+                    <Info className="w-7 h-7" />
                   </div>
-                  <h3 className="font-black text-2xl text-white font-heading tracking-wide">
+                  <h3 className="font-black text-xl text-slate-900 font-heading tracking-wide">
                     REPOS ACTIF
                   </h3>
-                  <p className="text-xs text-zinc-400 mt-2 max-w-md mx-auto leading-relaxed">
+                  <p className="text-xs text-slate-600 mt-2 max-w-md mx-auto leading-relaxed font-medium">
                     Aujourd'hui est une journée dédiée à la récupération, l'hydratation et le sommeil. Le muscle se reconstruit pendant le repos.
                   </p>
                 </div>
               ) : (
-                <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 shadow-md">
-                  <div className="flex items-center justify-between mb-2">
+                <div
+                  style={{ borderRadius: '48px', borderWidth: '0px' }}
+                  className="liquid-glass rounded-[48px] border-0 p-4 shadow-md"
+                >
+                  <div className="flex items-center justify-between mb-2.5">
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-xs font-mono font-black px-3 py-1 rounded-lg uppercase tracking-wider ${
+                        className={`text-xs font-mono font-black px-3 py-1 rounded-lg uppercase tracking-wider shadow-xs ${
                           currentProgram === 'A'
-                            ? 'bg-[#bbff00] text-[#0a0a0a]'
+                            ? 'bg-[#0a0a0a] text-[#bbff00]'
                             : currentProgram === 'B'
-                            ? 'bg-sky-400 text-[#0a0a0a]'
-                            : 'bg-amber-400 text-[#0a0a0a]'
+                            ? 'bg-sky-500 text-white'
+                            : 'bg-amber-500 text-white'
                         }`}
                       >
                         SÉANCE {currentProgram}
                       </span>
-                      <span className="text-xs font-extrabold text-zinc-200 truncate font-heading">
+                      <span className="text-xs font-black text-slate-900 truncate font-heading">
                         {programDetails?.label}
                       </span>
                     </div>
 
-                    <span className="text-xs font-mono font-bold text-zinc-400">
+                    <span className="text-xs font-mono font-bold text-slate-600">
                       {currentSession.completed.length}/{programDetails?.exercises.length} fait
                     </span>
                   </div>
 
                   {/* Progress Fill Bar */}
-                  <div className="w-full h-2 bg-zinc-900 rounded-full overflow-hidden border border-zinc-800">
+                  <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                     <div
-                      className="h-full bg-[#bbff00] transition-all duration-500 rounded-full shadow-sm shadow-[#bbff00]/50"
+                      className="h-full bg-[#0a0a0a] transition-all duration-500 rounded-full shadow-sm"
                       style={{
                         width: `${
                           ((currentSession.completed.length || 0) /
@@ -419,14 +425,14 @@ export default function App() {
 
             {/* Session Complete Celebration Banner */}
             {isSessionFullyComplete && currentProgram !== 'rest' && (
-              <div className="bg-gradient-to-r from-emerald-950/60 to-zinc-900 border border-emerald-500/40 rounded-2xl p-5 mb-6 text-center animate-in zoom-in-95 duration-200 shadow-xl shadow-emerald-950/30">
-                <div className="w-12 h-12 rounded-full bg-emerald-500 text-zinc-950 flex items-center justify-center mx-auto mb-2 shadow-lg">
-                  <CheckCircle className="w-7 h-7 stroke-[2.5]" />
+              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-2xl p-4 mb-5 text-center animate-in zoom-in-95 duration-200 shadow-md">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto mb-2 shadow-md">
+                  <CheckCircle className="w-6 h-6 stroke-[2.5]" />
                 </div>
-                <h3 className="font-extrabold text-xl text-emerald-400 uppercase tracking-wide">
+                <h3 className="font-extrabold text-lg text-emerald-950 uppercase tracking-wide font-heading">
                   Séance Validée ! 🔥
                 </h3>
-                <p className="text-xs text-zinc-300 mt-1">
+                <p className="text-xs text-emerald-800 mt-1 font-medium">
                   Excellente séance. Ta surcharge progressive a été enregistrée.
                 </p>
               </div>

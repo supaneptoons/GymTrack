@@ -89,7 +89,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     : 'rest';
 
   return (
-    <div className="p-4 max-w-4xl mx-auto pb-24 text-zinc-100 animate-in fade-in duration-200">
+    <div className="p-4 max-w-4xl mx-auto pb-24 text-slate-900 animate-in fade-in duration-200">
       {/* Page Title & Month Navigator */}
       <div className="flex items-center justify-between mb-4">
         <div>
@@ -97,19 +97,19 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <CalendarIcon className="w-6 h-6 text-[#0a0a0a]" />
             <span>Calendrier</span>
           </h2>
-          <p className="text-xs text-zinc-600 font-semibold capitalize mt-0.5">{monthLabel}</p>
+          <p className="text-xs text-slate-600 font-bold capitalize mt-0.5">{monthLabel}</p>
         </div>
 
-        <div className="flex items-center gap-1 bg-[#0a0a0a] p-1 rounded-xl border border-zinc-800 shadow-sm">
+        <div className="flex items-center gap-1 liquid-glass p-1 rounded-xl shadow-sm">
           <button
             onClick={handlePrevMonth}
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-[#bbff00]"
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={handleNextMonth}
-            className="p-1.5 rounded-lg hover:bg-zinc-800 text-zinc-400 hover:text-[#bbff00]"
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -118,32 +118,32 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
       {/* Stats Cards Row */}
       <div className="grid grid-cols-2 gap-3 mb-6">
-        <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 flex items-center gap-3 shadow-md">
-          <div className="p-3 rounded-xl bg-[#bbff00]/15 text-[#bbff00] border border-[#bbff00]/30">
+        <div className="liquid-glass rounded-2xl p-4 flex items-center gap-3 shadow-md">
+          <div className="p-3 rounded-xl bg-[#0a0a0a] text-[#bbff00]">
             <CheckCircle2 className="w-6 h-6 text-[#bbff00]" />
           </div>
           <div>
-            <div className="font-mono font-black text-2xl text-white">
+            <div className="font-mono font-black text-2xl text-slate-900">
               {completedMonthSessions.length}
             </div>
-            <div className="text-xs text-zinc-400 font-medium">Séances ce mois</div>
+            <div className="text-xs text-slate-500 font-bold">Séances ce mois</div>
           </div>
         </div>
 
-        <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 flex items-center gap-3 shadow-md">
-          <div className="p-3 rounded-xl bg-amber-500/15 text-amber-400 border border-amber-500/30">
-            <Flame className="w-6 h-6 text-amber-400" />
+        <div className="liquid-glass rounded-2xl p-4 flex items-center gap-3 shadow-md">
+          <div className="p-3 rounded-xl bg-amber-500 text-white">
+            <Flame className="w-6 h-6" />
           </div>
           <div>
-            <div className="font-mono font-black text-2xl text-white">{streak} j</div>
-            <div className="text-xs text-zinc-400 font-medium">Série en cours</div>
+            <div className="font-mono font-black text-2xl text-slate-900">{streak} j</div>
+            <div className="text-xs text-slate-500 font-bold">Série en cours</div>
           </div>
         </div>
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 mb-6 shadow-xl">
-        <div className="grid grid-cols-7 gap-1 text-center font-bold text-[11px] text-zinc-400 uppercase tracking-wider mb-2 font-heading">
+      <div className="liquid-glass rounded-2xl p-4 mb-6 shadow-md">
+        <div className="grid grid-cols-7 gap-1 text-center font-extrabold text-[11px] text-slate-500 uppercase tracking-wider mb-2 font-heading">
           <span>Lun</span>
           <span>Mar</span>
           <span>Mer</span>
@@ -174,27 +174,27 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               <button
                 key={k}
                 onClick={() => setSelectedDayModalKey(k)}
-                className={`aspect-square rounded-xl border flex flex-col items-center justify-between p-1.5 transition-all relative active:scale-90 ${
+                className={`aspect-square min-h-[44px] rounded-xl border flex flex-col items-center justify-between p-1.5 transition-all relative active:scale-90 shadow-xs ${
                   isDone
-                    ? 'bg-emerald-950/50 border-emerald-500/70 text-emerald-300 font-bold shadow-sm'
+                    ? 'bg-emerald-500 text-white border-emerald-600 font-black shadow-sm'
                     : isToday
-                    ? 'bg-zinc-900 border-[#bbff00] text-[#bbff00] font-black'
-                    : 'bg-zinc-950 border-zinc-800/80 text-zinc-300 hover:border-zinc-700'
+                    ? 'bg-white border-[#0a0a0a] text-[#0a0a0a] font-black ring-2 ring-[#0a0a0a]/20'
+                    : 'bg-slate-50 border-slate-200/90 text-slate-800 hover:border-slate-400'
                 }`}
               >
-                <span className="text-xs font-mono">{dayNum}</span>
+                <span className="text-xs font-mono font-bold">{dayNum}</span>
 
                 {/* Session badge indicator */}
                 {prog !== 'rest' && (
                   <span
                     className={`text-[9px] font-black px-1 rounded uppercase font-mono ${
                       isDone
-                        ? 'bg-emerald-500/20 text-emerald-300'
+                        ? 'bg-emerald-700 text-white'
                         : prog === 'A'
-                        ? 'text-[#bbff00]'
+                        ? 'bg-[#0a0a0a] text-[#bbff00]'
                         : prog === 'B'
-                        ? 'text-sky-400'
-                        : 'text-amber-400'
+                        ? 'bg-sky-500 text-white'
+                        : 'bg-amber-500 text-white'
                     }`}
                   >
                     {prog}
@@ -208,14 +208,14 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
       {/* History List */}
       <div>
-        <h3 className="text-sm font-bold uppercase tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
-          <Clock className="w-4 h-4 text-zinc-500" />
+        <h3 className="text-sm font-extrabold uppercase tracking-wider text-slate-700 mb-3 flex items-center gap-2 font-heading">
+          <Clock className="w-4 h-4 text-slate-500" />
           <span>Historique Récent</span>
         </h3>
 
         <div className="space-y-2">
           {completedMonthSessions.length === 0 ? (
-            <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center text-zinc-500 text-xs">
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 text-center text-slate-500 text-xs font-medium">
               Aucune séance enregistrée pour ce mois-ci.
             </div>
           ) : (
@@ -232,36 +232,36 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   <div
                     key={k}
                     onClick={() => setSelectedDayModalKey(k)}
-                    className="bg-zinc-900 border border-zinc-800/80 hover:border-zinc-700 rounded-xl p-3 flex items-center justify-between cursor-pointer transition-all active:scale-98"
+                    className="bg-white border border-slate-200/90 hover:border-slate-400 rounded-xl p-3 flex items-center justify-between cursor-pointer transition-all active:scale-98 shadow-sm"
                   >
                     <div className="flex items-center gap-3">
                       <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-xs font-mono ${
+                        className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs font-mono ${
                           pKey === 'A'
-                            ? 'bg-red-500/10 text-red-500 border border-red-500/20'
+                            ? 'bg-[#0a0a0a] text-[#bbff00]'
                             : pKey === 'B'
-                            ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
-                            : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
+                            ? 'bg-sky-500 text-white'
+                            : 'bg-amber-500 text-white'
                         }`}
                       >
                         {pKey}
                       </div>
 
                       <div>
-                        <div className="text-xs font-bold text-white capitalize">
+                        <div className="text-xs font-black text-slate-900 capitalize font-heading">
                           {formatFrenchDate(dObj, {
                             weekday: 'long',
                             day: 'numeric',
                             month: 'long',
                           })}
                         </div>
-                        <div className="text-[10px] text-zinc-400 font-medium mt-0.5">
+                        <div className="text-[10px] text-slate-500 font-semibold mt-0.5">
                           Séance {pKey} · {exCount} exercices effectués
                         </div>
                       </div>
                     </div>
 
-                    <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">
+                    <span className="bg-emerald-100 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
                       Terminé
                     </span>
                   </div>
@@ -273,12 +273,12 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
       {/* Day Details Modal */}
       {selectedDayModalKey && modalDate && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-lg p-5 text-zinc-100 shadow-2xl relative max-h-[85vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-lg p-5 text-slate-900 shadow-2xl relative max-h-[85vh] flex flex-col animate-in fade-in zoom-in-95 duration-150">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div>
-                <h3 className="font-extrabold text-base text-white capitalize">
+                <h3 className="font-black text-base text-slate-900 capitalize font-heading">
                   {formatFrenchDate(modalDate, {
                     weekday: 'long',
                     day: 'numeric',
@@ -286,22 +286,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                     year: 'numeric',
                   })}
                 </h3>
-                <p className="text-xs text-zinc-400">Détails de la journée</p>
+                <p className="text-xs text-slate-500 font-medium">Détails de la journée</p>
               </div>
 
               <button
                 onClick={() => setSelectedDayModalKey(null)}
-                className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 hover:bg-slate-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Routine Override options & Logical Shift */}
-            <div className="my-3 bg-zinc-950 p-3 rounded-xl border border-zinc-800 space-y-2.5">
+            <div className="my-3 bg-slate-50 p-3 rounded-xl border border-slate-200/90 space-y-2.5">
               <div className="flex items-center justify-between flex-wrap gap-2">
-                <span className="text-xs text-zinc-300 font-bold flex items-center gap-1.5 font-heading">
-                  <ArrowRightLeft className="w-3.5 h-3.5 text-[#bbff00]" />
+                <span className="text-xs text-slate-800 font-extrabold flex items-center gap-1.5 font-heading">
+                  <ArrowRightLeft className="w-3.5 h-3.5 text-[#0a0a0a]" />
                   <span>Programme pour ce jour :</span>
                 </span>
                 <div className="flex gap-1">
@@ -311,8 +311,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                       onClick={() => onSetManualProgram(selectedDayModalKey, p, cascadeShift)}
                       className={`px-2.5 py-1 rounded-lg text-xs font-black font-mono transition-all ${
                         modalProgram === p
-                          ? 'bg-[#bbff00] text-[#0a0a0a] shadow'
-                          : 'bg-zinc-900 text-zinc-400 hover:text-white'
+                          ? 'bg-[#0a0a0a] text-[#bbff00] shadow'
+                          : 'bg-white border border-slate-200 text-slate-600 hover:text-slate-900'
                       }`}
                     >
                       {p === 'rest' ? 'Repos' : p}
@@ -322,16 +322,16 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               </div>
 
               {/* Cascade shift toggle option */}
-              <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-xs">
-                <label className="flex items-center gap-2 cursor-pointer text-zinc-300 select-none">
+              <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-700 select-none">
                   <input
                     type="checkbox"
                     checked={cascadeShift}
                     onChange={(e) => setCascadeShift(e.target.checked)}
-                    className="w-3.5 h-3.5 accent-[#bbff00] rounded cursor-pointer"
+                    className="w-3.5 h-3.5 accent-[#0a0a0a] rounded cursor-pointer"
                   />
-                  <span className="text-[11px] font-semibold text-zinc-300">
-                    Décaler logiquement les séances suivantes (A → B → C)
+                  <span className="text-[11px] font-bold text-slate-700">
+                    Décaler logiquement les séances (A → B → C)
                   </span>
                 </label>
 
@@ -341,7 +341,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                       onClearScheduleOverrides(selectedDayModalKey);
                       setSelectedDayModalKey(null);
                     }}
-                    className="text-[10px] text-zinc-400 hover:text-[#bbff00] font-bold flex items-center gap-1"
+                    className="text-[10px] text-slate-500 hover:text-slate-900 font-bold flex items-center gap-1"
                     title="Rétablir la grille fixe de base"
                   >
                     <RotateCcw className="w-3 h-3" />
@@ -351,10 +351,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               </div>
 
               {cascadeShift && (
-                <div className="bg-[#bbff00]/10 border border-[#bbff00]/30 p-2.5 rounded-lg text-[10px] text-zinc-200 leading-relaxed flex items-start gap-2">
+                <div className="bg-[#0a0a0a] text-zinc-100 p-2.5 rounded-lg text-[10px] leading-relaxed flex items-start gap-2">
                   <Info className="w-4 h-4 text-[#bbff00] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="font-bold block text-[#bbff00] mb-0.5">
+                    <strong className="font-bold block text-[#bbff00] mb-0.5 font-heading">
                       Rotation logique active
                     </strong>
                     Si vous modifiez ce jour en <strong>Repos</strong> (ou changez la séance), la séance initiale glisse automatiquement sur le prochain jour d'entraînement afin d'enchaîner le PPL sans sauter de séance.
@@ -366,11 +366,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             {/* Workout Exercises details list */}
             <div className="overflow-y-auto flex-1 my-2 pr-1 space-y-2">
               {modalProgram === 'rest' ? (
-                <div className="py-8 text-center text-zinc-500 text-xs">
+                <div className="py-8 text-center text-slate-500 text-xs font-medium">
                   Journée de repos prévue. Récupération & nutrition.
                 </div>
               ) : !modalSession || Object.keys(modalSession.weights || {}).length === 0 ? (
-                <div className="py-8 text-center text-zinc-500 text-xs">
+                <div className="py-8 text-center text-slate-500 text-xs font-medium">
                   Aucune donnée d'exercice enregistrée pour cette séance.
                   <div className="mt-3">
                     <button
@@ -378,7 +378,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                         onSelectDate(selectedDayModalKey);
                         setSelectedDayModalKey(null);
                       }}
-                      className="px-4 py-2 bg-red-600 text-white rounded-xl text-xs font-bold uppercase tracking-wider"
+                      className="px-4 py-2.5 bg-[#0a0a0a] text-[#bbff00] rounded-xl text-xs font-black uppercase tracking-wider font-heading shadow-md"
                     >
                       Démarrer la séance maintenant
                     </button>
@@ -405,15 +405,15 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                   return (
                     <div
                       key={ex.id}
-                      className="bg-zinc-950 border border-zinc-800 rounded-xl p-3"
+                      className="bg-slate-50 border border-slate-200 rounded-xl p-3"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <div className="font-bold text-xs text-white flex items-center gap-2">
-                          <Dumbbell className="w-3.5 h-3.5 text-red-500" />
+                        <div className="font-black text-xs text-slate-900 flex items-center gap-2 font-heading">
+                          <Dumbbell className="w-3.5 h-3.5 text-[#0a0a0a]" />
                           <span>{ex.name}</span>
                         </div>
                         {isExDone && (
-                          <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded">
+                          <span className="text-[10px] text-emerald-700 font-black bg-emerald-100 px-2 py-0.5 rounded">
                             Validation OK
                           </span>
                         )}
@@ -423,10 +423,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                         {setsRecorded.map((s) => (
                           <div
                             key={s.setNum}
-                            className="text-xs text-zinc-400 flex items-center justify-between bg-zinc-900 px-2.5 py-1 rounded"
+                            className="text-xs text-slate-600 flex items-center justify-between bg-white border border-slate-200/80 px-2.5 py-1 rounded"
                           >
                             <span>Série {s.setNum}</span>
-                            <span className="font-mono font-bold text-white">
+                            <span className="font-mono font-black text-slate-900">
                               {s.kg} kg × {s.reps} reps
                             </span>
                           </div>
@@ -439,13 +439,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             </div>
 
             {/* Bottom Actions */}
-            <div className="pt-3 border-t border-zinc-800 flex justify-end">
+            <div className="pt-3 border-t border-slate-200 flex justify-end">
               <button
                 onClick={() => {
                   onSelectDate(selectedDayModalKey);
                   setSelectedDayModalKey(null);
                 }}
-                className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider"
+                className="w-full py-3 bg-[#0a0a0a] text-[#bbff00] hover:bg-zinc-800 rounded-xl text-xs font-black uppercase tracking-wider font-heading shadow-md"
               >
                 Ouvrir dans la vue Séance
               </button>

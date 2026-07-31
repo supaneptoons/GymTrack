@@ -28,7 +28,7 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
   const daysNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 
   return (
-    <div className="w-full overflow-x-auto no-scrollbar py-2 px-1">
+    <div className="w-full overflow-x-auto no-scrollbar py-2 px-1 touch-pan-x">
       <div className="flex gap-2 min-w-max justify-start sm:justify-center">
         {daysNames.map((name, idx) => {
           const d = new Date(monday);
@@ -40,35 +40,36 @@ export const WeekStrip: React.FC<WeekStripProps> = ({
           const isToday = k === currentDateKey;
           const isSelected = k === selectedDateKey;
 
-          let badgeColor = 'bg-zinc-800 text-zinc-400';
-          if (prog === 'A') badgeColor = 'bg-[#bbff00]/15 text-[#bbff00] border border-[#bbff00]/40';
-          if (prog === 'B') badgeColor = 'bg-sky-500/15 text-sky-400 border border-sky-500/30';
-          if (prog === 'C') badgeColor = 'bg-amber-500/15 text-amber-400 border border-amber-500/30';
-          if (prog === 'rest') badgeColor = 'bg-zinc-800 text-zinc-400';
+          let badgeColor = 'bg-slate-100 text-slate-600 border border-slate-200';
+          if (prog === 'A') badgeColor = 'bg-[#0a0a0a] text-[#bbff00]';
+          if (prog === 'B') badgeColor = 'bg-sky-500 text-white';
+          if (prog === 'C') badgeColor = 'bg-amber-500 text-white';
+          if (prog === 'rest') badgeColor = 'bg-slate-200/80 text-slate-600';
 
           return (
             <button
               key={k}
               onClick={() => onSelectDate(k)}
-              className={`flex-shrink-0 w-14 rounded-2xl p-2.5 flex flex-col items-center justify-between border-2 transition-all active:scale-95 text-center shadow-sm ${
+              style={{ borderRadius: '30px' }}
+              className={`flex-shrink-0 w-14 sm:w-16 min-h-[64px] rounded-[30px] p-2 flex flex-col items-center justify-between border-2 transition-all active:scale-95 text-center shadow-sm ${
                 isSelected
-                  ? 'bg-[#0a0a0a] border-[#bbff00] shadow-lg shadow-[#bbff00]/15 text-white'
+                  ? 'bg-[#0a0a0a] border-[#0a0a0a] text-white shadow-md shadow-slate-400/30'
                   : isDone
-                  ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300'
+                  ? 'bg-emerald-50 border-emerald-400 text-emerald-900'
                   : isToday
-                  ? 'bg-[#0a0a0a] border-zinc-500 text-white'
-                  : 'bg-[#0a0a0a]/90 border-zinc-800/80 text-zinc-300 hover:border-zinc-600'
+                  ? 'bg-white border-[#0a0a0a] text-slate-900 font-extrabold ring-2 ring-[#0a0a0a]/10'
+                  : 'bg-white border-slate-200/90 text-slate-700 hover:border-slate-400'
               }`}
             >
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 font-heading">
+              <span className={`text-[10px] font-bold uppercase tracking-wider font-heading ${isSelected ? 'text-zinc-300' : 'text-slate-500'}`}>
                 {name}
               </span>
-              <span className="font-mono font-black text-lg my-0.5 text-white flex items-center justify-center gap-1">
+              <span className={`font-mono font-black text-base my-0.5 flex items-center justify-center gap-0.5 ${isSelected ? 'text-white' : 'text-slate-900'}`}>
                 {d.getDate()}
-                {isDone && <Check className="w-3.5 h-3.5 text-[#bbff00] stroke-[3]" />}
+                {isDone && <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />}
               </span>
               <span
-                className={`text-[9px] font-bold px-1.5 py-0.5 rounded-md uppercase tracking-wider font-heading ${badgeColor}`}
+                className={`text-[9px] font-extrabold px-1.5 py-0.5 rounded-md uppercase tracking-wider font-heading ${badgeColor}`}
               >
                 {prog === 'rest' ? 'Repos' : prog}
               </span>

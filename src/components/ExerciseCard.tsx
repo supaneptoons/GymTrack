@@ -53,23 +53,24 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
   return (
     <div
-      className={`bg-[#0a0a0a] border rounded-2xl overflow-hidden transition-all duration-200 mb-3.5 shadow-md ${
+      style={{ borderRadius: '52px', borderWidth: '0px' }}
+      className={`liquid-glass rounded-[52px] border-0 overflow-hidden transition-all duration-200 mb-3.5 shadow-md ${
         isDone
-          ? 'border-emerald-500/50 bg-[#0a0a0a] shadow-emerald-950/20'
+          ? 'bg-emerald-50/40'
           : isOpen
-          ? 'border-[#bbff00] shadow-xl shadow-[#bbff00]/10'
-          : 'border-zinc-800/90 hover:border-zinc-700'
+          ? 'ring-2 ring-[#0a0a0a]/10 shadow-lg'
+          : ''
       }`}
     >
       {/* Card Header */}
       <div
         onClick={onToggleOpen}
-        className="p-4 flex items-center gap-3 cursor-pointer select-none"
+        className="p-3.5 sm:p-4 flex items-center gap-3 cursor-pointer select-none"
       >
         {/* Index Badge */}
         <div
-          className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono font-black text-sm flex-shrink-0 ${
-            isDone ? 'bg-emerald-500 text-[#0a0a0a]' : 'bg-[#bbff00] text-[#0a0a0a]'
+          className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono font-black text-sm flex-shrink-0 shadow-xs ${
+            isDone ? 'bg-emerald-600 text-white' : 'bg-[#0a0a0a] text-[#bbff00]'
           }`}
         >
           {index + 1}
@@ -78,11 +79,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         {/* Title & Info */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <h4 className="font-extrabold text-sm sm:text-base text-zinc-100 truncate font-heading">
+            <h4 className="font-black text-sm sm:text-base text-slate-900 truncate font-heading">
               {exercise.name}
             </h4>
           </div>
-          <p className="text-xs text-zinc-400 mt-0.5 font-medium truncate">
+          <p className="text-xs text-slate-500 mt-0.5 font-medium truncate">
             {exercise.sets}×{exercise.reps} · {exercise.muscles}
           </p>
         </div>
@@ -90,20 +91,20 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         {/* Right side indicators */}
         <div className="flex items-center gap-2 flex-shrink-0">
           {overloadSuggestion && !isDone && (
-            <div className="hidden sm:flex items-center gap-1 bg-[#bbff00]/10 border border-[#bbff00]/40 text-[#bbff00] px-2 py-0.5 rounded-md text-[10px] font-extrabold font-mono">
+            <div className="hidden sm:flex items-center gap-1 bg-[#0a0a0a] text-[#bbff00] px-2 py-0.5 rounded-md text-[10px] font-extrabold font-mono shadow-xs">
               <TrendingUp className="w-3 h-3 text-[#bbff00]" />
               <span>↑+{overloadSuggestion - (exerciseData.s1_kg || 0)}kg</span>
             </div>
           )}
 
           {isDone ? (
-            <div className="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400">
-              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-xs">
+              <Check className="w-4 h-4 stroke-[3]" />
             </div>
           ) : (
             <ChevronDown
-              className={`w-5 h-5 text-zinc-400 transition-transform duration-200 ${
-                isOpen ? 'transform rotate-180 text-[#bbff00]' : ''
+              className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${
+                isOpen ? 'transform rotate-180 text-slate-900' : ''
               }`}
             />
           )}
@@ -112,10 +113,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
       {/* Card Body */}
       {isOpen && (
-        <div className="px-4 pb-4 pt-1 border-t border-zinc-800/80 animate-in fade-in duration-150">
+        <div className="px-3.5 sm:px-4 pb-4 pt-1 border-t border-slate-200/90 animate-in fade-in duration-150">
           {/* Demonstration Images */}
           <div className="grid grid-cols-2 gap-2 my-3">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-black border border-zinc-800/80 group">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 group">
               {!img0Error ? (
                 <img
                   src={img0Url}
@@ -125,17 +126,17 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-zinc-600 text-[10px] p-2 text-center">
-                  <Info className="w-4 h-4 mb-1 text-zinc-500" />
+                <div className="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px] p-2 text-center">
+                  <Info className="w-4 h-4 mb-1 text-slate-400" />
                   <span>Position Départ</span>
                 </div>
               )}
-              <span className="absolute bottom-1.5 left-1.5 bg-black/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
+              <span className="absolute bottom-1.5 left-1.5 bg-[#0a0a0a]/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
                 Départ
               </span>
             </div>
 
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-black border border-zinc-800/80 group">
+            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 group">
               {!img1Error ? (
                 <img
                   src={img1Url}
@@ -145,32 +146,32 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-zinc-600 text-[10px] p-2 text-center">
-                  <Info className="w-4 h-4 mb-1 text-zinc-500" />
+                <div className="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px] p-2 text-center">
+                  <Info className="w-4 h-4 mb-1 text-slate-400" />
                   <span>Position Arrivée</span>
                 </div>
               )}
-              <span className="absolute bottom-1.5 left-1.5 bg-black/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
+              <span className="absolute bottom-1.5 left-1.5 bg-[#0a0a0a]/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
                 Arrivée
               </span>
             </div>
           </div>
 
           {/* Form Tip */}
-          <div className="bg-[#bbff00]/10 border-l-2 border-[#bbff00] p-2.5 rounded-r-xl mb-4 text-xs text-zinc-300 leading-relaxed flex items-start gap-2">
+          <div className="bg-[#0a0a0a] text-slate-100 p-3 rounded-xl mb-4 text-xs leading-relaxed flex items-start gap-2 shadow-sm">
             <Lightbulb className="w-4 h-4 text-[#bbff00] flex-shrink-0 mt-0.5" />
             <div>
-              <strong className="text-[#bbff00] font-bold block mb-0.5">Conseil d'exécution :</strong>
-              {exercise.tip}
+              <strong className="text-[#bbff00] font-bold block mb-0.5 font-heading">Conseil d'exécution :</strong>
+              <span className="text-zinc-300">{exercise.tip}</span>
             </div>
           </div>
 
           {/* Sets Tracker Buttons */}
           <div className="mb-4">
-            <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between font-heading">
+            <div className="text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-2 flex items-center justify-between font-heading">
               <span>Séries réalisées</span>
-              <span className="text-[10px] text-zinc-500 font-normal">
-                Cliquez pour cocher et lancer le chrono ({exercise.rest}s)
+              <span className="text-[10px] text-slate-500 font-normal">
+                Cliquez pour cocher ({exercise.rest}s repos)
               </span>
             </div>
 
@@ -183,14 +184,14 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                   <button
                     key={setNum}
                     onClick={() => onToggleSetDone(setNum, exercise.rest)}
-                    className={`aspect-square rounded-xl border flex flex-col items-center justify-center font-mono font-black text-base transition-all active:scale-95 ${
+                    className={`min-h-[48px] rounded-xl border flex flex-col items-center justify-center font-mono font-black text-base transition-all active:scale-95 shadow-xs ${
                       setDone
-                        ? 'bg-[#bbff00] border-[#bbff00] text-[#0a0a0a] shadow-md shadow-[#bbff00]/20'
-                        : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:border-zinc-600'
+                        ? 'bg-[#0a0a0a] border-[#0a0a0a] text-[#bbff00]'
+                        : 'bg-slate-100 border-slate-200/90 text-slate-700 hover:border-slate-400'
                     }`}
                   >
                     <span>{setNum}</span>
-                    <span className={`text-[9px] font-sans font-semibold mt-0.5 ${setDone ? 'text-[#0a0a0a]' : 'text-zinc-500'}`}>
+                    <span className={`text-[9px] font-sans font-extrabold ${setDone ? 'text-[#bbff00]' : 'text-slate-500'}`}>
                       {setDone ? 'Fait' : 'Série'}
                     </span>
                   </button>
@@ -201,10 +202,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
           {/* Weights & Reps Input Grid */}
           <div className="mb-4">
-            <div className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-2 flex items-center justify-between font-heading">
+            <div className="text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-2 flex items-center justify-between font-heading">
               <span>Poids & Répétitions</span>
               {maxEstimated1RM > 0 && (
-                <span className="text-[10px] text-[#bbff00] font-mono font-bold bg-[#bbff00]/10 px-2 py-0.5 rounded border border-[#bbff00]/30">
+                <span className="text-[10px] text-[#0a0a0a] font-mono font-bold bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
                   1RM Estimé : ~{maxEstimated1RM} kg
                 </span>
               )}
@@ -220,20 +221,20 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                 return (
                   <div
                     key={setNum}
-                    className="flex items-center gap-2 bg-zinc-950 border border-zinc-800/80 rounded-xl p-2"
+                    className="flex items-center gap-2 bg-slate-50 border border-slate-200/90 rounded-xl p-2"
                   >
-                    <span className="text-xs font-mono font-bold text-zinc-400 w-16">
+                    <span className="text-xs font-mono font-bold text-slate-700 w-16 shrink-0">
                       Série {setNum}
                     </span>
 
                     {sugg && (
-                      <span className="text-[10px] text-[#bbff00] font-bold bg-[#bbff00]/10 px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] text-[#0a0a0a] font-bold bg-[#bbff00] px-1.5 py-0.5 rounded shrink-0">
                         ↑{sugg}kg
                       </span>
                     )}
 
                     {/* Weight Input */}
-                    <div className="flex-1 flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1 focus-within:border-[#bbff00]">
+                    <div className="flex-1 flex items-center gap-1 bg-white border border-slate-300 rounded-lg px-2 py-1.5 focus-within:border-[#0a0a0a] focus-within:ring-1 focus-within:ring-[#0a0a0a]">
                       <input
                         type="number"
                         inputMode="decimal"
@@ -246,16 +247,16 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             e.target.value === '' ? null : parseFloat(e.target.value)
                           )
                         }
-                        className="w-full bg-transparent text-white font-mono font-bold text-sm text-center focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 font-mono font-black text-base text-center focus:outline-none"
                       />
-                      <span className="text-[10px] font-bold text-zinc-500">kg</span>
+                      <span className="text-[10px] font-bold text-slate-500">kg</span>
 
                       {/* Plate Calc trigger */}
                       <button
                         onClick={() =>
                           onOpenPlateCalculator(parseFloat(weightVal) || sugg || 60)
                         }
-                        className="p-1 rounded text-zinc-500 hover:text-[#bbff00] hover:bg-zinc-800 transition-colors"
+                        className="p-1 rounded text-slate-400 hover:text-[#0a0a0a] hover:bg-slate-100 transition-colors shrink-0"
                         title="Calculateur de disques"
                       >
                         <Calculator className="w-3.5 h-3.5" />
@@ -263,7 +264,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     </div>
 
                     {/* Reps Input */}
-                    <div className="w-24 flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1 focus-within:border-[#bbff00]">
+                    <div className="w-24 sm:w-28 flex items-center gap-1 bg-white border border-slate-300 rounded-lg px-2 py-1.5 focus-within:border-[#0a0a0a] focus-within:ring-1 focus-within:ring-[#0a0a0a] shrink-0">
                       <input
                         type="number"
                         inputMode="numeric"
@@ -275,9 +276,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                             e.target.value === '' ? null : parseInt(e.target.value, 10)
                           )
                         }
-                        className="w-full bg-transparent text-white font-mono font-bold text-sm text-center focus:outline-none"
+                        className="w-full bg-transparent text-slate-900 font-mono font-black text-base text-center focus:outline-none"
                       />
-                      <span className="text-[10px] font-bold text-zinc-500">reps</span>
+                      <span className="text-[10px] font-bold text-slate-500">reps</span>
                     </div>
                   </div>
                 );
@@ -288,10 +289,10 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
           {/* Complete Exercise Button */}
           <button
             onClick={onToggleExerciseDone}
-            className={`w-full py-3 rounded-xl font-extrabold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 active:scale-98 font-heading ${
+            className={`w-full py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 active:scale-98 font-heading ${
               isDone
-                ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-950/40'
-                : 'bg-[#bbff00] hover:bg-[#a6e600] text-[#0a0a0a] shadow-md shadow-[#bbff00]/20'
+                ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md'
+                : 'bg-[#0a0a0a] hover:bg-zinc-800 text-[#bbff00] shadow-md'
             }`}
           >
             <Check className="w-4 h-4 stroke-[3]" />

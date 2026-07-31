@@ -101,19 +101,19 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl w-full max-w-lg h-[80vh] flex flex-col text-zinc-100 shadow-2xl relative animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="liquid-glass rounded-2xl w-full max-w-lg h-[80vh] flex flex-col text-slate-900 shadow-2xl relative animate-in fade-in zoom-in-95 duration-150">
         {/* Header */}
-        <div className="p-4 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/80 rounded-t-2xl">
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50/80 rounded-t-2xl">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#bbff00] flex items-center justify-center shadow-md">
-              <Sparkles className="w-4 h-4 text-[#0a0a0a]" />
+            <div className="w-8 h-8 rounded-xl bg-[#0a0a0a] flex items-center justify-center shadow-md">
+              <Sparkles className="w-4 h-4 text-[#bbff00]" />
             </div>
             <div>
-              <h3 className="font-black text-sm uppercase tracking-wide text-white flex items-center gap-1.5 font-heading">
+              <h3 className="font-black text-sm uppercase tracking-wide text-slate-900 flex items-center gap-1.5 font-heading">
                 <span>Coach IA GymTrack</span>
               </h3>
-              <span className="text-[10px] text-[#bbff00] font-mono font-bold">
+              <span className="text-[10px] text-[#0a0a0a] font-mono font-bold">
                 Propulsé par Gemini 2.5
               </span>
             </div>
@@ -121,20 +121,20 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 hover:bg-slate-100"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Quick Suggestions Chips */}
-        <div className="px-4 py-2 bg-zinc-950/40 border-b border-zinc-800/60 overflow-x-auto no-scrollbar flex gap-2">
+        <div className="px-4 py-2 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar flex gap-2">
           {quickPrompts.map((p, i) => (
             <button
               key={i}
               onClick={() => handleSendPrompt(p)}
               disabled={isLoading}
-              className="text-[11px] font-medium bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3 py-1 rounded-full whitespace-nowrap active:scale-95 transition-all"
+              className="text-[11px] font-bold bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 px-3 py-1 rounded-full whitespace-nowrap active:scale-95 transition-all shadow-2xs"
             >
               {p}
             </button>
@@ -151,18 +151,18 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
               <div
                 className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold ${
                   m.sender === 'user'
-                    ? 'bg-zinc-800 text-white'
-                    : 'bg-[#bbff00] text-[#0a0a0a] shadow-md'
+                    ? 'bg-slate-900 text-white'
+                    : 'bg-[#0a0a0a] text-[#bbff00] shadow-md'
                 }`}
               >
-                {m.sender === 'user' ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-[#0a0a0a]" />}
+                {m.sender === 'user' ? <User className="w-4 h-4 text-white" /> : <Bot className="w-4 h-4 text-[#bbff00]" />}
               </div>
 
               <div
                 className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed ${
                   m.sender === 'user'
-                    ? 'bg-[#bbff00] text-[#0a0a0a] font-medium rounded-tr-none shadow'
-                    : 'bg-zinc-950 border border-zinc-800 text-zinc-200 rounded-tl-none whitespace-pre-line'
+                    ? 'bg-[#0a0a0a] text-[#bbff00] font-bold rounded-tr-none shadow'
+                    : 'bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-none whitespace-pre-line font-medium'
                 }`}
               >
                 {m.text}
@@ -171,15 +171,15 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
           ))}
 
           {isLoading && (
-            <div className="flex gap-2.5 items-center text-zinc-400 text-xs font-mono animate-pulse">
-              <Bot className="w-4 h-4 text-[#bbff00]" />
+            <div className="flex gap-2.5 items-center text-slate-500 text-xs font-mono animate-pulse">
+              <Bot className="w-4 h-4 text-[#0a0a0a]" />
               <span>Analyse biomécanique en cours par le Coach IA...</span>
             </div>
           )}
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 border-t border-zinc-800 bg-zinc-950/90 rounded-b-2xl">
+        <div className="p-3 border-t border-slate-200 bg-slate-50 rounded-b-2xl">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -193,15 +193,15 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
               onChange={(e) => setInputPrompt(e.target.value)}
               placeholder="Ex: Comment bien régler le banc pour l'incliné..."
               disabled={isLoading}
-              className="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#bbff00]"
+              className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0a0a0a]"
             />
 
             <button
               type="submit"
               disabled={isLoading || !inputPrompt.trim()}
-              className="p-2.5 bg-[#bbff00] hover:bg-[#a6e600] disabled:opacity-40 text-[#0a0a0a] rounded-xl shadow-md transition-all active:scale-95"
+              className="p-2.5 bg-[#0a0a0a] hover:bg-zinc-800 disabled:opacity-40 text-[#bbff00] rounded-xl shadow-md transition-all active:scale-95"
             >
-              <Send className="w-4 h-4 text-[#0a0a0a]" />
+              <Send className="w-4 h-4 text-[#bbff00]" />
             </button>
           </form>
         </div>

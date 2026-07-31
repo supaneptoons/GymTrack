@@ -38,14 +38,14 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
   });
 
   return (
-    <div className="p-4 max-w-4xl mx-auto pb-24 text-zinc-100 animate-in fade-in duration-200">
+    <div className="p-4 max-w-4xl mx-auto pb-24 text-slate-900 animate-in fade-in duration-200">
       {/* Title */}
       <div className="mb-6">
         <h2 className="text-2xl font-black uppercase tracking-tight text-[#0a0a0a] font-heading flex items-center gap-2">
           <ChartIcon className="w-6 h-6 text-[#0a0a0a]" />
           <span>Surcharge & Progrès</span>
         </h2>
-        <p className="text-xs text-zinc-600 font-semibold mt-0.5">
+        <p className="text-xs text-slate-600 font-bold mt-0.5">
           Suivi de tes charges maximales, volume d'entraînement et records personnels.
         </p>
       </div>
@@ -64,10 +64,10 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
           <button
             key={cat.id}
             onClick={() => setSelectedCategory(cat.id)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-extrabold uppercase tracking-wider transition-all whitespace-nowrap font-heading ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all whitespace-nowrap font-heading shadow-xs ${
               selectedCategory === cat.id
-                ? 'bg-[#bbff00] text-[#0a0a0a] shadow-md shadow-[#bbff00]/20'
-                : 'bg-[#0a0a0a] border border-zinc-800 text-zinc-300 hover:text-white'
+                ? 'bg-[#0a0a0a] text-[#bbff00] shadow-md'
+                : 'bg-white border border-slate-200/90 text-slate-700 hover:text-slate-900 hover:border-slate-400'
             }`}
           >
             {cat.label}
@@ -77,26 +77,26 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
 
       {/* Muscle Volume Breakdown */}
       {grandTotalVolume > 0 && (
-        <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 mb-6 shadow-xl">
+        <div className="liquid-glass rounded-2xl p-4 mb-6 shadow-md">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-xs font-black uppercase tracking-wider text-zinc-300 flex items-center gap-2 font-heading">
-              <Dumbbell className="w-4 h-4 text-[#bbff00]" />
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-800 flex items-center gap-2 font-heading">
+              <Dumbbell className="w-4 h-4 text-[#0a0a0a]" />
               <span>Volume Total Soulevé</span>
             </h3>
-            <span className="font-mono font-black text-sm text-[#bbff00]">
+            <span className="font-mono font-black text-sm text-[#0a0a0a]">
               {Math.round(grandTotalVolume).toLocaleString('fr-FR')} kg
             </span>
           </div>
 
           {/* Distribution Bar */}
-          <div className="h-3.5 w-full bg-zinc-950 rounded-full overflow-hidden flex mb-3 border border-zinc-800">
+          <div className="h-3.5 w-full bg-slate-100 rounded-full overflow-hidden flex mb-3 border border-slate-200">
             {Object.entries(muscleVolumes).map(([cat, vol]) => {
               const pct = (vol / grandTotalVolume) * 100;
-              let bg = 'bg-[#bbff00]';
-              if (cat === 'pull') bg = 'bg-sky-400';
-              if (cat === 'legs') bg = 'bg-amber-400';
-              if (cat === 'shoulders') bg = 'bg-purple-400';
-              if (cat === 'arms') bg = 'bg-emerald-400';
+              let bg = 'bg-[#0a0a0a]';
+              if (cat === 'pull') bg = 'bg-sky-500';
+              if (cat === 'legs') bg = 'bg-amber-500';
+              if (cat === 'shoulders') bg = 'bg-purple-500';
+              if (cat === 'arms') bg = 'bg-emerald-500';
 
               return (
                 <div
@@ -109,7 +109,7 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
             })}
           </div>
 
-          <div className="flex flex-wrap gap-3 text-[11px] font-medium text-zinc-400">
+          <div className="flex flex-wrap gap-3 text-[11px] font-bold text-slate-600">
             {Object.entries(muscleVolumes).map(([cat, vol]) => {
               const pct = Math.round((vol / grandTotalVolume) * 100);
               return (
@@ -117,14 +117,14 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
                   <span
                     className={`w-2.5 h-2.5 rounded-full ${
                       cat === 'push'
-                        ? 'bg-[#bbff00]'
+                        ? 'bg-[#0a0a0a]'
                         : cat === 'pull'
-                        ? 'bg-sky-400'
+                        ? 'bg-sky-500'
                         : cat === 'legs'
-                        ? 'bg-amber-400'
+                        ? 'bg-amber-500'
                         : cat === 'shoulders'
-                        ? 'bg-purple-400'
-                        : 'bg-emerald-400'
+                        ? 'bg-purple-500'
+                        : 'bg-emerald-500'
                     }`}
                   />
                   <span>
@@ -159,77 +159,77 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
           return (
             <div
               key={ex.id}
-              className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-4 shadow-lg hover:border-zinc-700 transition-all"
+              className="liquid-glass rounded-2xl p-4 shadow-md transition-all"
             >
               <div className="flex items-center justify-between mb-3">
                 <div>
-                  <h4 className="font-extrabold text-sm text-white font-heading">{ex.name}</h4>
-                  <p className="text-[11px] text-zinc-400 capitalize">{ex.muscles}</p>
+                  <h4 className="font-black text-sm text-slate-900 font-heading">{ex.name}</h4>
+                  <p className="text-[11px] text-slate-500 font-semibold capitalize">{ex.muscles}</p>
                 </div>
 
                 {/* Trend Badge */}
                 <div
-                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono font-bold ${
+                  className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono font-black ${
                     trend === 'up'
-                      ? 'bg-[#bbff00]/15 text-[#bbff00] border border-[#bbff00]/40'
+                      ? 'bg-[#0a0a0a] text-[#bbff00]'
                       : trend === 'down'
-                      ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
-                      : 'bg-zinc-800 text-zinc-400'
+                      ? 'bg-rose-100 text-rose-700'
+                      : 'bg-slate-100 text-slate-600'
                   }`}
                 >
                   {trend === 'up' && <TrendingUp className="w-3.5 h-3.5 text-[#bbff00]" />}
-                  {trend === 'down' && <TrendingDown className="w-3.5 h-3.5 text-rose-400" />}
-                  {trend === 'same' && <Minus className="w-3.5 h-3.5 text-zinc-400" />}
+                  {trend === 'down' && <TrendingDown className="w-3.5 h-3.5 text-rose-600" />}
+                  {trend === 'same' && <Minus className="w-3.5 h-3.5 text-slate-500" />}
                   <span>{trend === 'up' ? '+2.5kg' : trend === 'down' ? '-kg' : '='}</span>
                 </div>
               </div>
 
               {/* Metrics Grid */}
               <div className="grid grid-cols-4 gap-2 mb-3">
-                <div className="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2.5 text-center">
-                  <div className="font-mono font-black text-lg text-[#bbff00]">{maxRecord}</div>
-                  <div className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">
+                <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 text-center">
+                  <div className="font-mono font-black text-lg text-slate-900">{maxRecord}</div>
+                  <div className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5">
                     Record
                   </div>
                 </div>
 
-                <div className="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2.5 text-center">
-                  <div className="font-mono font-black text-lg text-amber-400">{max1RM}</div>
-                  <div className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">
+                <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 text-center">
+                  <div className="font-mono font-black text-lg text-amber-600">{max1RM}</div>
+                  <div className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5">
                     1RM Max
                   </div>
                 </div>
 
-                <div className="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2.5 text-center">
-                  <div className="font-mono font-black text-lg text-sky-400">
+                <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 text-center">
+                  <div className="font-mono font-black text-lg text-sky-600">
                     {lastEntry.maxKg}
                   </div>
-                  <div className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">
+                  <div className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5">
                     Dernier
                   </div>
                 </div>
 
-                <div className="bg-zinc-950 border border-zinc-800/80 rounded-xl p-2.5 text-center">
-                  <div className="font-mono font-black text-lg text-emerald-400">
+                <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 text-center">
+                  <div className="font-mono font-black text-lg text-emerald-600">
                     {targetNext}
                   </div>
-                  <div className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider mt-0.5">
+                  <div className="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider mt-0.5">
                     Cible
                   </div>
                 </div>
               </div>
 
               {/* Mini Progression Sparkline Bar Chart */}
-              <div className="bg-zinc-950 p-2 rounded-xl border border-zinc-800/60 flex items-end gap-1 h-12">
+              <div className="bg-slate-100 p-2 rounded-xl border border-slate-200/90 flex items-end gap-1 h-12">
                 {history.slice(-12).map((h, i) => {
                   const heightPct = Math.max(20, (h.maxKg / maxRecord) * 100);
                   return (
                     <div
                       key={i}
-                      className="flex-1 bg-[#bbff00]/80 hover:bg-[#bbff00] rounded-t transition-all group relative"
+                      className="flex-1 bg-[#0a0a0a] hover:bg-zinc-800 rounded-t transition-all group relative"
                       style={{ height: `${heightPct}%` }}
                     >
-                      <div className="opacity-0 group-hover:opacity-100 absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-black text-[9px] font-mono text-white px-1.5 py-0.5 rounded pointer-events-none whitespace-nowrap z-10">
+                      <div className="opacity-0 group-hover:opacity-100 absolute bottom-full mb-1 left-1/2 -translate-x-1/2 bg-[#0a0a0a] text-[9px] font-mono text-[#bbff00] px-1.5 py-0.5 rounded pointer-events-none whitespace-nowrap z-10 shadow-md">
                         {h.maxKg}kg ({h.date})
                       </div>
                     </div>
@@ -241,9 +241,9 @@ export const StatsView: React.FC<StatsViewProps> = ({ sessions, allExercises }) 
         })}
 
         {filteredExercises.every((ex) => getExerciseHistory(ex.id, sessions).length === 0) && (
-          <div className="bg-[#0a0a0a] border border-zinc-800 rounded-2xl p-8 text-center text-zinc-500">
-            <Trophy className="w-10 h-10 text-zinc-700 mx-auto mb-2" />
-            <p className="text-xs">
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-8 text-center text-slate-500">
+            <Trophy className="w-10 h-10 text-slate-400 mx-auto mb-2" />
+            <p className="text-xs font-medium">
               Aucun historique enregistré pour ces exercices.
               <br />
               Entrez vos poids pendant vos séances pour générer vos courbes de progression !
