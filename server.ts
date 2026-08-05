@@ -27,22 +27,35 @@ async function startServer() {
 
       const { prompt, userContext } = req.body;
 
-      const ai = new GoogleGenAI({ apiKey });
-      
-      const systemInstruction = `Tu es GymTrack AI Coach, un entraîneur de musculation expert, bienveillant, scientifique et motivant.
-Tu réponds en français clair, concis et directement structuré.
-Fournis des conseils pratiques sur la surcharge progressive, l'exécution des mouvements, la récupération, la nutrition sportive et la gestion de la fatigue.
-Si l'utilisateur pose une question sur un exercice spécifique, donne des repères d'exécution biomécaniques précis (angles, trajectoire, respiration).`;
+      const ai = new GoogleGenAI({
+        apiKey,
+        httpOptions: {
+          headers: {
+            'User-Agent': 'aistudio-build',
+          },
+        },
+      });
 
-      const formattedPrompt = `Contexte de l'utilisateur :
-- Programme : ${userContext?.currentProgram || 'PPL'}
-- Séance du jour : ${userContext?.sessionName || 'Non spécifiée'}
-- Historique récent : ${userContext?.recentSummary || 'Débutant/Intermédiaire'}
+      const systemInstruction = `Tu es GymTrack AI Coach, un entraîneur de musculation expert, scientifique, bienveillant et hautement motivant.
+Tu réponds en français clair, structuré avec des puces, des sous-titres et une excellente lisibilité.
+Fournis des conseils ultra-pratiques et personnalisés sur :
+- La surcharge progressive (séries, répétitions, incrémentations de charges)
+- La biomécanique et la trajectoire optimale des mouvements (angles, prise, tempo, respiration)
+- La prévention des blessures et la gestion des douleurs articulaires
+- La récupération, le sommeil, les besoins protéiques et la périodisation (maintien, prise de masse, sèche, deload)
+- L'analyse des performances de l'utilisateur d'après son contexte.
 
-Question / Demande : ${prompt}`;
+Donne des étapes concrètes et directement applicables à la prochaine séance !`;
+
+      const formattedPrompt = `Contexte de l'utilisateur GymTrack :
+- Programme actuel : ${userContext?.currentProgram || 'PPL'}
+- Séance courante : ${userContext?.sessionName || 'Non spécifiée'}
+- Niveau / Historique : ${userContext?.recentSummary || 'Non spécifié'}
+
+Demande de l'adhérent : ${prompt}`;
 
       const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.6-flash",
         contents: formattedPrompt,
         config: {
           systemInstruction,

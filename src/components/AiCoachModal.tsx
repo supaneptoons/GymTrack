@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Sparkles, Send, X, Bot, User, Dumbbell, RefreshCw } from 'lucide-react';
+import Markdown from 'react-markdown';
+import { Sparkles, Send, X, Bot, User, Trash2 } from 'lucide-react';
 
 interface AiCoachModalProps {
   currentProgram: string;
@@ -24,18 +25,28 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
     {
       id: 'welcome',
       sender: 'ai',
-      text: `Salut ! Je suis **GymTrack AI Coach**. 🏋️‍♂️\n\nQue tu cherches à valider la technique d'un exercice, surmonter un plateau sur ton développé couché ou ton squat, ou optimiser ta récupération, je suis là pour t'aider !\n\nPose-moi ta question !`,
+      text: `Salut ! Je suis ton **GymTrack AI Coach**, optimisé par **Gemini 3.6 Flash** 🏋️‍♂️\n\nJe peux t'aider sur :\n- 📈 La **surcharge progressive** et le choix des charges\n- 🏋️‍♂️ La **biomécanique** et les clés d'exécution de tes exercices\n- 🔄 La gestion des **plateaux**, des temps de repos et des **deloads**\n- 🥗 La nutrition sportive et la récupération\n\nQue souhaite-tu savoir aujourd'hui ?`,
     },
   ]);
   const [inputPrompt, setInputPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const quickPrompts = [
-    'Comment passer un palier sur le développé couché ?',
-    'Quelle est la bonne trajectoire au squat barre ?',
-    'Conseils pour éviter les douleurs aux épaules en poussée',
-    'Comment gérer la fatigue entre mes séances PPL ?',
+    '📈 Stratégie pour passer un palier au développé couché',
+    '🎯 Trajectoire et placement du bassin au squat',
+    '⚡ Comment calculer ma surcharge progressive sur 4 semaines ?',
+    '🧘 Quand et comment programmer une semaine de Deload ?',
   ];
+
+  const handleClearChat = () => {
+    setMessages([
+      {
+        id: 'welcome',
+        sender: 'ai',
+        text: `Discussion réinitialisée ! Je suis ton **GymTrack AI Coach** (Gemini 3.6 Flash). Pose-moi n'importe quelle question sur ton entraînement.`,
+      },
+    ]);
+  };
 
   const handleSendPrompt = async (promptToSend?: string) => {
     const text = promptToSend || inputPrompt;
@@ -113,28 +124,40 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
               <h3 className="font-black text-sm uppercase tracking-wide text-slate-900 flex items-center gap-1.5 font-heading">
                 <span>Coach IA GymTrack</span>
               </h3>
-              <span className="text-[10px] text-[#0a0a0a] font-mono font-bold">
-                Propulsé par Gemini 2.5
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#bbff00]" />
+                <span className="text-[10px] text-[#0a0a0a] font-mono font-extrabold">
+                  Gemini 3.6 Flash
+                </span>
+              </div>
             </div>
           </div>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 hover:bg-slate-100"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={handleClearChat}
+              title="Effacer la conversation"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 hover:bg-slate-100"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Quick Suggestions Chips */}
-        <div className="px-4 py-2 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar flex gap-2">
+        <div className="px-4 py-2 bg-slate-50 border-b border-slate-200/80 overflow-x-auto no-scrollbar flex gap-2 shrink-0">
           {quickPrompts.map((p, i) => (
             <button
               key={i}
               onClick={() => handleSendPrompt(p)}
               disabled={isLoading}
-              className="text-[11px] font-bold bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 px-3 py-1 rounded-full whitespace-nowrap active:scale-95 transition-all shadow-2xs"
+              className="text-[11px] font-bold bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 px-3 py-1 rounded-full whitespace-nowrap active:scale-95 transition-all shadow-2xs shrink-0"
             >
               {p}
             </button>
@@ -159,13 +182,19 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
               </div>
 
               <div
-                className={`max-w-[80%] rounded-2xl p-3 text-xs leading-relaxed ${
+                className={`max-w-[85%] rounded-2xl p-3 text-xs leading-relaxed ${
                   m.sender === 'user'
                     ? 'bg-[#0a0a0a] text-[#bbff00] font-bold rounded-tr-none shadow'
-                    : 'bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-none whitespace-pre-line font-medium'
+                    : 'bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-none font-medium'
                 }`}
               >
-                {m.text}
+                {m.sender === 'user' ? (
+                  m.text
+                ) : (
+                  <div className="prose prose-xs max-w-none text-slate-800 prose-p:my-1 prose-ul:my-1 prose-li:my-0.5 prose-headings:my-1.5 prose-strong:text-slate-900">
+                    <Markdown>{m.text}</Markdown>
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -173,7 +202,7 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
           {isLoading && (
             <div className="flex gap-2.5 items-center text-slate-500 text-xs font-mono animate-pulse">
               <Bot className="w-4 h-4 text-[#0a0a0a]" />
-              <span>Analyse biomécanique en cours par le Coach IA...</span>
+              <span>Analyse biomécanique en cours par Gemini 3.6 Flash...</span>
             </div>
           )}
         </div>
@@ -191,7 +220,7 @@ export const AiCoachModal: React.FC<AiCoachModalProps> = ({
               type="text"
               value={inputPrompt}
               onChange={(e) => setInputPrompt(e.target.value)}
-              placeholder="Ex: Comment bien régler le banc pour l'incliné..."
+              placeholder="Ex: Pose ta question sur un mouvement, une charge..."
               disabled={isLoading}
               className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#0a0a0a]"
             />

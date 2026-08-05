@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Exercise, ExerciseData } from '../types';
 import { EXERCISE_IMAGE_BASE_URL } from '../data/defaultProgram';
 import { calculate1RM } from '../utils/workoutUtils';
 import { Check, ChevronDown, Lightbulb, Calculator, TrendingUp, Info } from 'lucide-react';
+import { ExerciseMediaViewer } from './ExerciseMediaViewer';
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -17,6 +18,8 @@ interface ExerciseCardProps {
   onOpenPlateCalculator: (weightKg: number) => void;
   isOpen: boolean;
   onToggleOpen: () => void;
+  animatedGifs?: boolean;
+  mediaBaseUrl?: string;
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({
@@ -32,14 +35,9 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
   onOpenPlateCalculator,
   isOpen,
   onToggleOpen,
+  animatedGifs,
+  mediaBaseUrl,
 }) => {
-  const [img0Error, setImg0Error] = useState(false);
-  const [img1Error, setImg1Error] = useState(false);
-
-  const [folder, f0, f1] = exercise.imgs;
-  const img0Url = `${EXERCISE_IMAGE_BASE_URL}${folder}/${f0}`;
-  const img1Url = `${EXERCISE_IMAGE_BASE_URL}${folder}/${f1}`;
-
   // Find max 1RM for current sets
   let maxEstimated1RM = 0;
   for (let s = 1; s <= exercise.sets; s++) {
@@ -114,48 +112,11 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
       {/* Card Body */}
       {isOpen && (
         <div className="px-3.5 sm:px-4 pb-4 pt-1 border-t border-slate-200/90 animate-in fade-in duration-150">
-          {/* Demonstration Images */}
-          <div className="grid grid-cols-2 gap-2 my-3">
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 group">
-              {!img0Error ? (
-                <img
-                  src={img0Url}
-                  alt="Départ"
-                  className="w-full h-full object-cover"
-                  onError={() => setImg0Error(true)}
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px] p-2 text-center">
-                  <Info className="w-4 h-4 mb-1 text-slate-400" />
-                  <span>Position Départ</span>
-                </div>
-              )}
-              <span className="absolute bottom-1.5 left-1.5 bg-[#0a0a0a]/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
-                Départ
-              </span>
-            </div>
-
-            <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 border border-slate-200/80 group">
-              {!img1Error ? (
-                <img
-                  src={img1Url}
-                  alt="Arrivée"
-                  className="w-full h-full object-cover"
-                  onError={() => setImg1Error(true)}
-                  loading="lazy"
-                />
-              ) : (
-                <div className="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px] p-2 text-center">
-                  <Info className="w-4 h-4 mb-1 text-slate-400" />
-                  <span>Position Arrivée</span>
-                </div>
-              )}
-              <span className="absolute bottom-1.5 left-1.5 bg-[#0a0a0a]/80 backdrop-blur-sm text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider font-heading">
-                Arrivée
-              </span>
-            </div>
-          </div>
+          {/* Photos de démonstration */}
+          <ExerciseMediaViewer
+            exercise={exercise}
+            baseUrl={mediaBaseUrl}
+          />
 
           {/* Form Tip */}
           <div className="bg-[#0a0a0a] text-slate-100 p-3 rounded-xl mb-4 text-xs leading-relaxed flex items-start gap-2 shadow-sm">

@@ -12,6 +12,7 @@ export interface Exercise {
   imgs: [string, string, string]; // [folder, image0, image1]
   equipment?: string;
   custom?: boolean;
+  gifUrl?: string;
 }
 
 export interface ProgramDetails {
@@ -52,6 +53,8 @@ export interface UserSettings {
   autoOverloadStep: number; // e.g. 2.5 kg
   barbellWeight: number; // e.g. 20 kg
   autoShiftSchedule?: boolean; // automatically cascade PPL rotation on schedule changes
+  animatedGifs?: boolean; // enable looping animated GIF playback
+  exerciseMediaBaseUrl?: string; // custom base URL for image/gif source
 }
 
 export interface AppData {

@@ -1,6 +1,6 @@
 import { Exercise, ProgramDetails, UserSettings } from '../types';
 
-export const EXERCISE_IMAGE_BASE_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+export const EXERCISE_IMAGE_BASE_URL = 'https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0/';
 
 export const DEFAULT_PROGRAM_A: ProgramDetails = {
   key: 'A',
@@ -276,6 +276,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
   autoOverloadStep: 2.5,
   barbellWeight: 20,
   autoShiftSchedule: true,
+  animatedGifs: true,
+  exerciseMediaBaseUrl: EXERCISE_IMAGE_BASE_URL,
 };
 
 export const EXTRA_LIBRARY_EXERCISES: Exercise[] = [

@@ -257,26 +257,20 @@ export default function App() {
   };
 
   const handleResetData = () => {
-    if (
-      window.confirm(
-        'Êtes-vous sûr de vouloir réinitialiser toutes les données de GymTrack ? Cette action est irréversible.'
-      )
-    ) {
-      localStorage.removeItem(STORAGE_KEY);
-      setData({
-        sessions: {},
-        customExercises: [],
-        schedule: DEFAULT_SCHEDULE,
-        settings: DEFAULT_SETTINGS,
-      });
-      setShowSettingsModal(false);
-    }
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem('gymtrack_v4');
+    setData({
+      sessions: {},
+      customExercises: [],
+      schedule: DEFAULT_SCHEDULE,
+      settings: DEFAULT_SETTINGS,
+    });
+    setShowSettingsModal(false);
   };
 
   // Load realistic sample data for testing stats & calendar!
   const handleLoadSampleData = () => {
     const sampleSessions: Record<string, SessionState> = {};
-    const sampleDates = [];
 
     // Generate 12 previous training days
     const now = new Date();
@@ -326,7 +320,6 @@ export default function App() {
     }));
 
     setShowSettingsModal(false);
-    alert('Données de démonstration chargées avec succès ! Rendez-vous sur l\'onglet "Progrès" ou "Calendrier".');
   };
 
   const isSessionFullyComplete =
@@ -474,6 +467,8 @@ export default function App() {
                       onToggleOpen={() =>
                         setOpenCards((prev) => ({ ...prev, [ex.id]: !isOpen }))
                       }
+                      animatedGifs={data.settings.animatedGifs}
+                      mediaBaseUrl={data.settings.exerciseMediaBaseUrl}
                     />
                   );
                 })}

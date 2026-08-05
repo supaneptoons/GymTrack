@@ -1,7 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { UserSettings, AppData } from '../types';
 import { exportDataAsJSON, dateKey } from '../utils/workoutUtils';
-import { Settings, Download, Upload, Trash2, X, Volume2, VolumeX, Smartphone, RefreshCw, Sparkles, ArrowRightLeft, RotateCcw } from 'lucide-react';
+import {
+  Settings,
+  Download,
+  Upload,
+  Trash2,
+  X,
+  Volume2,
+  VolumeX,
+  Smartphone,
+  RefreshCw,
+  Sparkles,
+  ArrowRightLeft,
+  RotateCcw,
+  Film,
+  AlertTriangle,
+} from 'lucide-react';
 
 interface SettingsModalProps {
   settings: UserSettings;
@@ -29,6 +44,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onClose,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [confirmReset, setConfirmReset] = useState(false);
 
   const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
@@ -203,6 +219,32 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
+          {/* Media & Photos Settings */}
+          <div>
+            <h4 className="text-xs font-black uppercase tracking-wider text-[#0a0a0a] mb-2 font-heading">
+              Affichage des Photos d'Exercices
+            </h4>
+            <div className="space-y-2">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/90 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-extrabold text-slate-700 font-heading">
+                    Source / URL de la banque d'images
+                  </label>
+                </div>
+
+                <input
+                  type="text"
+                  value={settings.exerciseMediaBaseUrl || 'https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0/'}
+                  onChange={(e) => onUpdateSettings({ exerciseMediaBaseUrl: e.target.value })}
+                  className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-[#0a0a0a] font-mono text-[11px]"
+                />
+                <p className="text-[10px] text-slate-500 font-medium leading-tight">
+                  La source actuelle est appliquée instantanément à toutes vos fiches d'exercices.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Data Backup & Sample Data */}
           <div>
             <h4 className="text-xs font-black uppercase tracking-wider text-[#0a0a0a] mb-2 font-heading">
@@ -247,13 +289,46 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
           {/* Reset Factory */}
           <div className="pt-2 border-t border-slate-200">
-            <button
-              onClick={onResetData}
-              className="w-full flex items-center justify-center gap-2 bg-rose-50 border border-rose-200 hover:bg-rose-100 p-2.5 rounded-xl text-xs font-extrabold text-rose-700"
-            >
-              <Trash2 className="w-4 h-4" />
-              <span>Réinitialiser toutes les données</span>
-            </button>
+            {!confirmReset ? (
+              <button
+                type="button"
+                onClick={() => setConfirmReset(true)}
+                className="w-full flex items-center justify-center gap-2 bg-rose-50 border border-rose-200 hover:bg-rose-100 p-2.5 rounded-xl text-xs font-extrabold text-rose-700 transition-colors"
+              >
+                <Trash2 className="w-4 h-4 text-rose-600" />
+                <span>Réinitialiser toutes les données</span>
+              </button>
+            ) : (
+              <div className="bg-rose-50 border border-rose-300 p-3 rounded-xl space-y-2.5 animate-in fade-in duration-200">
+                <div className="flex items-start gap-2 text-rose-900 text-xs">
+                  <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-extrabold block">Voulez-vous vraiment réinitialiser ?</span>
+                    <span className="text-[11px] text-rose-700 leading-tight block mt-0.5">
+                      Toutes vos séances enregistrées, historiques et réglages seront définitivement effacés.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={onResetData}
+                    className="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs py-2 px-3 rounded-lg shadow-sm transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Oui, tout effacer</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setConfirmReset(false)}
+                    className="px-3 py-2 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold text-xs rounded-lg transition-colors"
+                  >
+                    Annuler
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
